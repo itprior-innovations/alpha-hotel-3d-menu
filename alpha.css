@@ -143,3 +143,26 @@ header{display:grid;grid-template-columns:44px minmax(0,1fr) 44px 44px;align-ite
 .hv{width:100%;height:100%;object-fit:cover;display:block}
 .hov{position:absolute;inset:0;display:flex;align-items:flex-end;padding:12px 16px;background:linear-gradient(transparent 40%,#1d1108dd)}
 .hov b{color:#ffe9c4;font:600 15px "Noto Sans",sans-serif;letter-spacing:.04em}
+/* sprite photos */
+.spi{background-repeat:no-repeat;background-size:1000% 500%;background-color:#1d1108;flex:none}
+.dish .spi.dimg{width:72px;height:72px;border-radius:50%;box-shadow:0 5px 12px #0003}
+.qrow .spi.qimg{width:40px;height:40px;border-radius:50%}
+.ph .spi.phs{width:100%;height:100%;border-radius:50%}
+/* merged filter strip */
+#flt .strip{display:flex;gap:8px;align-items:center}
+#flt .strip .tabs{flex:1;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+#flt .strip .diet{display:flex;gap:0;border:1px solid #ffffff22;border-radius:99px;overflow:hidden;flex:none}
+#flt .strip .diet button{padding:6px 10px;font-size:11px;min-height:32px;border:0;border-radius:0;flex:none}
+/* compact hiding header */
+.topbar header{max-height:64px;overflow:hidden;transition:max-height .22s ease,padding .22s ease,opacity .18s ease}
+.topbar.min header{max-height:0;opacity:0;padding-top:0;padding-bottom:0}
+/* shorter banner */
+.hero{height:110px}
+/* credits link + sheet */
+.credit{text-align:center;margin:14px 0 18px}
+.crb{background:none;border:0;color:var(--mut);font:600 12px "Noto Sans",system-ui,sans-serif;text-decoration:underline;cursor:pointer;padding:8px}
+.crs{max-height:56vh;overflow:auto;text-align:start;font-size:12px;color:var(--mut)}
+.crs p{margin:4px 0 10px;line-height:1.5}
+.crr{padding:5px 0;border-top:1px solid #ffffff12}
+.crr b{display:block;color:var(--cream);font-size:12.5px}
+.crr a{color:var(--gold)}
