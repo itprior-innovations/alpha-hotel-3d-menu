@@ -70,7 +70,9 @@ header{display:flex;align-items:center;justify-content:space-between;padding:cal
 .gb{font:700 17px "Noto Sans",system-ui,sans-serif;background:var(--gold);color:#2b170b;border:0;border-radius:99px;padding:13px 40px}
 @media(min-width:900px){#det{flex-direction:row}.dst{flex:1.2}.dinfo{align-self:center;text-align:start}.dinfo h2{justify-content:flex-start}}
 .noimg{width:72px;height:72px;border-radius:50%;background:#e6d5b0;flex:none;box-shadow:inset 0 0 0 2px #4a2c1422}
+button:focus-visible,.dish:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 .dpr{font:800 36px/1.1 var(--serif)!important;color:var(--gold);margin:8px 0 2px}
+
 /* motion */
 #det:not([hidden]){animation:dopen .38s cubic-bezier(.2,.9,.25,1)}
 @keyframes dopen{from{opacity:0;transform:scale(.9) translateY(24px);border-radius:28px}}
@@ -91,3 +93,6 @@ button:active:not(:disabled){transform:scale(.94)}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 .emp b{display:block;font:700 24px var(--serif);color:var(--gold);padding:60px 0}
 .fly{position:fixed;z-index:60;width:28px;height:28px;pointer-events:none;will-change:transform}.fly svg{width:28px;height:28px;fill:#c0392b;stroke:#c0392b}
+
+.credit{margin:6px 12px 0;text-align:center;font-size:10.5px;line-height:1.35;color:var(--mut);opacity:.85}
+.paper.sc{overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}.paper.sc .page{min-height:min-content}.pgn.one{display:none}
