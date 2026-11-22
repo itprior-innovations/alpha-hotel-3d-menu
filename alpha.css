@@ -131,3 +131,10 @@ header{display:grid;grid-template-columns:44px minmax(0,1fr) 44px 44px;align-ite
 #flt .diet button{min-height:40px}
 
 .sbar[hidden]{display:none}
+
+.steam{position:absolute;top:16%;left:0;right:0;display:flex;justify-content:center;gap:14px;pointer-events:none;z-index:2}
+.steam i{width:6px;height:26px;border-radius:4px;background:#ffffff8f;filter:blur(2.5px);animation:stm 1.8s ease-in-out infinite}
+.steam i:nth-child(2){animation-delay:.4s;height:32px}
+.steam i:nth-child(3){animation-delay:.8s}
+@keyframes stm{0%{transform:translateY(12px) scaleY(.4);opacity:0}45%{opacity:.85}100%{transform:translateY(-22px) scaleY(1);opacity:0}}
+@media (prefers-reduced-motion:reduce){.steam{display:none}}
