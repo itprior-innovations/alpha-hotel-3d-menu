@@ -36,7 +36,7 @@ const IMG=i=>esc(safeUrl(A[i.img]||i.imgUrl)||(i.img?FISH:'')||PH);
  const SP=window.SPMAP||{};
  const SPI=(i,cls)=>{const m=SP[i.id];if(!m)return'';const px=(m[1]/2700*100).toFixed(2),py=(m[2]/1200*100).toFixed(2);return `<div class="spi ${cls}" data-sp="${m[0]}" role="img" aria-label="${nm(i).replace(/<[^>]*>/g,'')}" style="background-position:${px}% ${py}%"></div>`};
  const PIC=(i,cls)=>SPI(i,cls)||(IMG(i)?`<img class="${cls}" src="${IMG(i)}" alt="" loading="lazy">`:'');
- let _spb=null;const spSrc=n=>{if(!_spb){_spb=[];const all=(window.SPCH||[]).join('');let off=0;[939644,783592,878368,701788].forEach(L=>{_spb.push('data:image/webp;base64,'+all.substr(off,L));off+=L})}return _spb[n]};
+ let _spb=null;const spSrc=n=>{if(!_spb){_spb=[];const all=(window.SPCH||[]).join('');let off=0;[939644,783592,874180,701788].forEach(L=>{_spb.push('data:image/webp;base64,'+all.substr(off,L));off+=L})}return _spb[n]};
  const lazify=()=>{const vt=-500,vb=innerHeight+500;document.querySelectorAll('.spi:not(.spon)').forEach(el=>{const r=el.getBoundingClientRect();if(r.top<vb&&r.bottom>vt){el.classList.add('spon');el.style.backgroundImage=`url("${spSrc(+el.dataset.sp)}")`}})};
  const hasR=i=>!!(i.renderer&&REN[i.renderer]);
  const hasMV=i=>!!i.glb&&!!GLBURL&&!!(window.customElements&&(window.USE_MV||customElements.get('model-viewer')));
