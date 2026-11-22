@@ -9,7 +9,7 @@ const getJSON=async u=>{try{const r=await fetch(u);return r.ok?await r.json():nu
 const getTxt=async u=>{try{const r=await fetch(u);return r.ok?await r.text():''}catch(e){return ''}};
 const ic={heart:'<svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-9.3-9A5.3 5.3 0 0 1 12 6a5.3 5.3 0 0 1 9.3 6C19 16.5 12 21 12 21z"/></svg>',globe:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/></svg>',l:'<svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>',r:'<svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>'};
 const COURSE={starters:'starters',biryani:'main',rice:'main',dessert:'desserts',drink:'drinks'};
-const cOf=i=>COURSE[i.cat]||'main';
+const SOON={en:'Coming soon',te:'త్వరలో వస్తుంది',hi:'जल्द आ रहा है'};const cOf=i=>COURSE[i.cat]||'main';
 
 async function mount(root,opts){
  root=root||document.body;unmount();opts=opts||{};
@@ -34,7 +34,7 @@ async function mount(root,opts){
  const hasMV=i=>!!i.glb&&!!GLBURL&&!!(window.customElements&&(window.USE_MV||customElements.get('model-viewer')));
  const has3d=i=>hasR(i)||hasMV(i);
  let PK=[];try{PK=JSON.parse(st.get('pk','[]'));if(!Array.isArray(PK))PK=[]}catch(e){PK=[]}
- const courses=['starters','main','desserts','drinks'].filter(c=>M.items.some(i=>cOf(i)==c));
+ const courses=['starters','main','desserts','drinks'];
  let cf=courses[0],vf='all',pg=0,det=-1,inst=null,dir=0;
  const isPk=i=>PK.includes(i.id),savePk=()=>st.set('pk',JSON.stringify(PK));
  const vis=()=>M.items.map((i,x)=>x).filter(x=>cOf(M.items[x])==cf&&(vf=='all'||(M.items[x].veg!=null&&(vf=='veg')==!!M.items[x].veg)));
@@ -49,7 +49,7 @@ async function mount(root,opts){
  function book(){const v=vis(),n=ps(),c=cols(),per=n*c,pages=Math.max(1,Math.ceil(v.length/per));if(pg>=pages)pg=pages-1;if(pg<0)pg=0;
   const sl=v.slice(pg*per,pg*per+per),b=$('#book');
   const pageHtml=(arr,first)=>`<section class="page">${first?`<h1>${t(cf)}</h1>`:'<h1>&nbsp;</h1>'}${arr.map(row).join('')}</section>`;
-  b.innerHTML=v.length?`<div class="paper ${dir>0?'tn':dir<0?'tp':''}">${c==2?pageHtml(sl.slice(0,n),1)+pageHtml(sl.slice(n),0):pageHtml(sl,1)}</div><div class="pgn"><button class="ib" id="pp" ${pg==0?'disabled':''} aria-label="prev">${ic.l}</button><span>${pg+1} / ${pages}</span><button class="ib" id="pn" ${pg>=pages-1?'disabled':''} aria-label="next">${ic.r}</button></div>`:`<div class="emp">${t('none')}</div>`;
+  b.innerHTML=v.length?`<div class="paper ${dir>0?'tn':dir<0?'tp':''}">${c==2?pageHtml(sl.slice(0,n),1)+pageHtml(sl.slice(n),0):pageHtml(sl,1)}</div><div class="pgn"><button class="ib" id="pp" ${pg==0?'disabled':''} aria-label="prev">${ic.l}</button><span>${pg+1} / ${pages}</span><button class="ib" id="pn" ${pg>=pages-1?'disabled':''} aria-label="next">${ic.r}</button></div>`:`<div class="emp">${M.items.some(i=>cOf(i)==cf)?t('none'):'<b>'+esc(SOON[L]||SOON.en)+'</b>'}</div>`;
   const turn=d=>{const np=pg+d;if(np<0||np>=pages)return;pg=np;dir=d;book()};
   const pp=$('#pp'),pn=$('#pn');if(pp){const rt=RTL.includes(L);pp.onclick=()=>turn(-1);pn.onclick=()=>turn(1);let sx=null;const ppr=b.querySelector('.paper');ppr.ontouchstart=e=>sx=e.touches[0].clientX;ppr.ontouchend=e=>{if(sx==null)return;const d=e.changedTouches[0].clientX-sx;sx=null;if(Math.abs(d)>60)turn((d<0?1:-1)*(rt?-1:1))}}
   b.querySelectorAll('.dish').forEach(r=>r.onclick=e=>{const h=e.target.closest('[data-h]');if(h){tog(M.items[+h.dataset.h]);return}openDet(+r.dataset.x)})}
