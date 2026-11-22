@@ -90,3 +90,4 @@ button:active:not(:disabled){transform:scale(.94)}
 #pc:not(:empty){animation:pop .3s}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 .emp b{display:block;font:700 24px var(--serif);color:var(--gold);padding:60px 0}
+.fly{position:fixed;z-index:60;width:28px;height:28px;pointer-events:none;will-change:transform}.fly svg{width:28px;height:28px;fill:#c0392b;stroke:#c0392b}
