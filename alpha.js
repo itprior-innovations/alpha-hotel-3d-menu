@@ -22,7 +22,7 @@ async function mount(root,opts){
  const UI={};const ks=new Set([...Object.keys(U1||{}),...Object.keys(U2||{}),'en']);ks.forEach(k=>UI[k]=Object.assign({},(U1||{})[k],(U2||{})[k]));
  const P=new URLSearchParams(location.search),RTL=['ar','he','fa','ur'];
  let L=P.get('lang')||st.get('lang','')||(navigator.language||'en').slice(0,2);if(!UI[L])L='en';
- const tr=k=>(UI[L]&&UI[L][k])||(UI.en&&UI.en[k])||k,t=k=>esc(tr(k));
+ const arT=()=>({en:'View on your table',te:'మీ టేబుల్‌పై చూడండి',hi:'अपनी मेज़ पर देखें'})[L]||'View on your table';const tr=k=>(UI[L]&&UI[L][k])||(UI.en&&UI.en[k])||k,t=k=>esc(tr(k));
  const pp=()=>{const m=tr('pricepend');return m==='pricepend'?'Price pending':m};
  const nm=i=>esc(i.n[L]||i.n.en||''),ds=i=>esc((i.d&&(i.d[L]||i.d.en))||''),money=n=>isNum(n)?esc(M.currency)+n.toLocaleString('en-IN'):'';
  const vgs=i=>i.veg===1||i.veg===0||i.veg===true||i.veg===false?`<span class="vg ${i.veg?'':'nv'}"></span>`:'';
@@ -36,6 +36,7 @@ async function mount(root,opts){
  const hasMV=i=>!!i.glb&&!!GLBURL&&!!(window.customElements&&(window.USE_MV||customElements.get('model-viewer')));
  const has3d=i=>hasR(i)||hasMV(i);
  let PK=[];try{PK=JSON.parse(st.get('pk','[]'));if(!Array.isArray(PK))PK=[]}catch(e){PK=[]}
+ let QT={};try{QT=JSON.parse(st.get('qty','{}'))||{}}catch(e){QT={}}
  const courses=['starters','main','desserts','drinks'].filter(c=>M.allCourses===false?M.items.some(i=>cOf(i)==c):true);
  let cf=courses[0],vf='all',pg=0,det=-1,inst=null,dir=0;
  const isPk=i=>PK.includes(i.id),savePk=()=>st.set('pk',JSON.stringify(PK));
@@ -66,7 +67,7 @@ async function mount(root,opts){
   d.innerHTML=`<button class="ib back" id="bk" aria-label="${t('back')}">${ic.l}</button><div class="dst" id="dst"></div><div class="dinfo"><h2>${vgs(i)}${nm(i)}</h2><p>${ds(i)}</p><div class="dpr">${money(i.price)||esc(pp())}</div><button class="pickbtn ${isPk(i)?'on':''}" id="pk">${ic.heart}<span>${t(isPk(i)?'picked':'pick')}</span></button>${M.credit?`<p class="credit">${esc(M.credit)}</p>`:''}<small class="trn">${has3d(i)?t('turn'):''}</small></div>`;
   const s=$('#dst');
   if(hasR(i)){const el=document.createElement('div');el.className='rend';s.append(el);try{inst=REN[i.renderer]({item:i,lang:L,rtl:RTL.includes(L),t:tr});inst.mount(el,{item:i,lang:L,rtl:RTL.includes(L),spin:true})}catch(e){closeInst();el.remove();const m=tr('r_unsupported');s.innerHTML=`<div class="emp" role="status">${esc(m==='r_unsupported'?'3D is not supported on this device.':m)}</div>`;const tn=d.querySelector('.trn');if(tn)tn.textContent=''}}
-  else if(hasMV(i)){s.innerHTML=`<model-viewer src="${GLBURL}" alt="${nm(i)}" camera-controls auto-rotate auto-rotate-delay="600" rotation-per-second="22deg" environment-image="neutral" exposure="1.3" shadow-intensity="1.1" shadow-softness="1" camera-orbit="25deg 66deg auto" min-camera-orbit="auto 0deg auto" max-camera-orbit="auto 95deg auto" field-of-view="28deg"></model-viewer>`}
+  else if(hasMV(i)){s.innerHTML=`<model-viewer src="${GLBURL}" alt="${nm(i)}" camera-controls auto-rotate auto-rotate-delay="600" rotation-per-second="22deg" environment-image="neutral" exposure="1.3" shadow-intensity="1.1" shadow-softness="1" camera-orbit="25deg 66deg auto" min-camera-orbit="auto 0deg auto" max-camera-orbit="auto 95deg auto" field-of-view="28deg" ar ar-modes="webxr scene-viewer quick-look" ar-scale="auto" ar-placement="floor"><button slot="ar-button" class="arb" type="button">${ic.ar||""}<span>${esc(arT())}</span></button></model-viewer>`}
   else s.innerHTML=`<div class="ph">${IMG(i)?`<img src="${IMG(i)}" alt="${nm(i)}">`:''}</div><span class="pend">${t('pending')}</span>`;
   $('#bk').onclick=closeDet;$('#pk').onclick=()=>tog(i,$('#pk'));
   let sx=null;const step=dd=>{const v=vis();if(v.length<2)return;det=v[(v.indexOf(det)+dd+v.length)%v.length];detail()};
@@ -77,8 +78,12 @@ async function mount(root,opts){
   const draw=q=>{const l=$('#ll');l.innerHTML='';Object.keys(UI).filter(k=>UI[k].l&&((UI[k].l+k).toLowerCase().includes(q))).forEach(k=>{const b=E(`<button class="${k==L?'on':''}">${esc(UI[k].l)}</button>`);b.onclick=()=>{L=k;st.set('lang',k);closeSheet();render();if(det>=0)detail()};l.append(b)})};
   draw('');$('#lq').oninput=e=>draw(e.target.value.toLowerCase());
   if($('#gm'))$('#gm').onclick=()=>{closeSheet();window.gtInit=()=>new google.translate.TranslateElement({pageLanguage:'en',autoDisplay:false},'gt2');const d=E('<div id="gt2" style="position:fixed;bottom:10px;left:10px;z-index:30;background:#fff;padding:6px;border-radius:8px"></div>');root.append(d);const sc=document.createElement('script');sc.src='https://translate.google.com/translate_a/element.js?cb=gtInit';document.body.append(sc)}}
- function picks(){const it=PK.map(id=>M.items.find(i=>i.id==id)).filter(Boolean);const s=sheet(`<h3>${t('mypicks')}</h3>${it.length?`<p class="show">${t('show')}</p><div class="list">${it.map(i=>`<button data-r="${esc(i.id)}">${IMG(i)?`<img src="${IMG(i)}" alt="">`:''}<span>${vgs(i)} ${nm(i)}</span><i class="x">✕</i></button>`).join('')}</div>`:`<small style="display:block;padding:14px;color:var(--mut)">${t('nopicks')}</small>`}`);
-  s.querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>{PK=PK.filter(x=>x!=b.dataset.r);savePk();sync();picks()})}
+ function picks(){const it=PK.map(id=>M.items.find(i=>i.id==id)).filter(Boolean);
+  const row=i=>{const q=QT[i.id]||1,lp=isNum(i.price)?i.price*q:null;return `<div class="qrow" data-i="${esc(i.id)}">${IMG(i)?`<img src="${IMG(i)}" alt="">`:''}<div class="qi"><b>${vgs(i)} ${nm(i)}</b><small>${isNum(i.price)?money(i.price)+' each':'Price pending'}</small></div><div class="qs"><button data-q="-1" aria-label="Less">−</button><span>${q}</span><button data-q="1" aria-label="More">+</button></div><i class="qp">${lp!=null?money(lp):''}</i><button class="qx" data-r="${esc(i.id)}" aria-label="Remove">✕</button></div>`};
+  const tot=it.reduce((a,i)=>a+(isNum(i.price)?i.price*(QT[i.id]||1):0),0),allP=it.every(i=>isNum(i.price));
+  const s=sheet(`<h3>${t('mypicks')}</h3>${it.length?`<p class="show">Show this to your waiter. No ordering or payment here.</p><div class="list">${it.map(row).join('')}</div><div class="qtot"><span>Total</span><b>${allP?money(tot):money(tot)+' + items with price pending'}</b></div>`:`<small style="display:block;padding:14px;color:var(--mut)">${t('nopicks')}</small>`}`);
+  s.querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>{PK=PK.filter(x=>x!=b.dataset.r);savePk();sync();picks()});
+  s.querySelectorAll('[data-q]').forEach(b=>b.onclick=()=>{const id=b.closest('.qrow').dataset.i;const q=(QT[id]||1)+ +b.dataset.q;if(q<1){QT[id]=1}else{QT[id]=Math.min(q,20)}st.set('qty',JSON.stringify(QT));picks()})}
  function hint(){if(st.get('seen','')&&!P.get('hint'))return;const h=E(`<div id="hint"><div class="hc"><div class="hd"><svg viewBox="0 0 24 24"><path d="M9 11V5a1.5 1.5 0 0 1 3 0v5l5 1.2c1 .3 1.6 1.2 1.4 2.2L18 19a2 2 0 0 1-2 1.7h-5a2 2 0 0 1-1.6-.8L5.5 14a1.4 1.4 0 0 1 2-2L9 13.5"/></svg></div><p>${t('h_tap')}</p><div class="sp"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div><p>${t('h_swipe')}</p><button class="gb">${t('gotit')}</button></div></div>`);h.onclick=()=>{st.set('seen','1');h.remove()};root.append(h)}
  listen(document,'keydown',e=>{if(e.key=='Escape'){if(!$('#sheet').hidden)closeSheet();else if(det>=0)closeDet()}});
  let rz;listen(window,'resize',()=>{clearTimeout(rz);rz=setTimeout(()=>{dir=0;book()},150)});
