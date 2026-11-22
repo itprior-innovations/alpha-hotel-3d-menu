@@ -4,34 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Alpha Hotel · 3D Menu</title>
-<meta name="theme-color" content="#14100c">
+<meta name="theme-color" content="#2b170b">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&family=Noto+Sans+Telugu:wght@400;600&family=Noto+Sans+Devanagari:wght@400;600&family=Noto+Sans+Tamil:wght@400;600&family=Noto+Sans+Kannada:wght@400;600&family=Noto+Sans+Arabic:wght@400;600&family=Noto+Sans+SC:wght@400;600&family=Noto+Sans+JP:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="54-style.css">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Noto+Sans:wght@400;600;700&family=Noto+Sans+Telugu:wght@400;600&family=Noto+Sans+Devanagari:wght@400;600&family=Noto+Sans+Tamil:wght@400;600&family=Noto+Sans+Kannada:wght@400;600&family=Noto+Sans+Arabic:wght@400;600&family=Noto+Sans+SC:wght@400;600&family=Noto+Sans+JP:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="alpha.css">
+<script type="module" src="https://unpkg.com/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
 </head>
 <body>
-<header class="hero">
-  <div class="brand"><span class="logo">α</span><div><h1 id="name"></h1><p id="place"></p></div></div>
-  <div class="langs" id="langs" role="tablist"></div>
-</header>
-<div class="bar">
-  <input id="q" type="search" autocomplete="off">
-  <div class="chips" id="cats"></div>
-</div>
-<main id="grid" class="grid"></main>
-<p class="demo" id="demo"></p>
-<div id="gt" class="gt"></div>
-<button id="cartbar" class="cartbar" hidden></button>
-<div id="sheet" class="sheet" hidden></div>
-<script type="module" src="https://unpkg.com/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
 <script>
-var A={"chicken-biryani":"61-chicken-biryani.webp","apollo-fish":"59-apollo-fish.webp","chicken-65":"60-chicken-65.webp","chicken-lollipop":"62-chicken-lollipop.webp","chilli-chicken":"63-chilli-chicken.webp","veg-biryani":"66-veg-biryani.webp","fried-rice":"65-fried-rice.webp"},FISH='',GLB='';
-var IMG=function(n){return A[n]||FISH};
-var b=function(u){return fetch(u).then(function(r){return r.text()})};
-Promise.all([b('fish.b64.txt').catch(function(){return ''}),b('dish.b64.txt').catch(function(){return ''})]).then(function(r){
- FISH=r[0]?'data:image/webp;base64,'+r[0].trim():'';
- if(r[1]){var x=atob(r[1].trim()),u=new Uint8Array(x.length);for(var i=0;i<x.length;i++)u[i]=x.charCodeAt(i);GLB=URL.createObjectURL(new Blob([u],{type:'model/gltf-binary'}))}
- var s=document.createElement('script');s.src='app.js';document.body.append(s)});
+window.A={"chicken-biryani":"61-chicken-biryani.webp","apollo-fish":"59-apollo-fish.webp","chicken-65":"60-chicken-65.webp","chicken-lollipop":"62-chicken-lollipop.webp","chilli-chicken":"63-chilli-chicken.webp","veg-biryani":"66-veg-biryani.webp","fried-rice":"65-fried-rice.webp"};
 </script>
+<script src="alpha.js"></script>
 </body>
 </html>
