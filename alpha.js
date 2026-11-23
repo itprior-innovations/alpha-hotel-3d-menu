@@ -147,6 +147,8 @@ st.textContent=`#app{position:relative;overflow:hidden}
 .topbar.min header{max-height:64px!important;opacity:1!important;padding-top:inherit!important;padding-bottom:inherit!important}
 .b3n{margin:10px 12px 14px!important}
 .paper{background:linear-gradient(#2b170b,#2b170b) 0 0/100% var(--gh,300px) no-repeat local,linear-gradient(90deg,#e6d5b0,#f6ecd6 7%,#f6ecd6) !important}
+#det{z-index:60!important}
+.sheet{z-index:70!important}
 #app.gh .topbar,#app.gx .hero,#app.gx .b3n{transform:translateY(-110vh)}`;
 document.head.append(st);
 const app=()=>document.getElementById('app');
