@@ -6,37 +6,24 @@
 <title>Alpha Hotel · 3D Menu</title>
 <meta name="theme-color" content="#2b170b">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Noto+Sans:wght@400;600;700&family=Noto+Sans+Telugu:wght@400;600&family=Noto+Sans+Devanagari:wght@400;600&family=Noto+Sans+Tamil:wght@400;600&family=Noto+Sans+Kannada:wght@400;600&family=Noto+Sans+Arabic:wght@400;600&family=Noto+Sans+SC:wght@400;600&family=Noto+Sans+JP:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Noto+Sans:wght@400;600;700&family=Noto+Sans+Telugu:wght@400;600&family=Noto+Sans+Devanagari:wght@400;600&family=Noto+Sans+Tamil:wght@400;600&family=Noto+Sans+Kannada:wght@400;600&family=Noto+Sans+Arabic:wght@400;600&family=Noto+Sans+SC:wght@400;600&family=Noto+Sans+JP:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" media="print" onload="this.media=\'all\'">
 <!-- Attribution (kept in page source, not shown on the menu): 199 dish photos from Wikimedia Commons contributors under free licences (CC BY / CC BY-SA / public domain), full per-photo credits in credits.js; banner clips from Pexels (free licence, no attribution required); 11 dish photos from Alpha Hotel's Zomato listing (demo). -->
 <link rel="stylesheet" href="alpha.css">
 <script type="module" src="https://unpkg.com/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
 </head>
 <body>
 <script>
-window.USE_MV=1;window.FISH_FILE="fish.b64.txt";window.GLB_PARTS=["dish.b64.1.txt","dish.b64.2.txt"];window.A={"chicken-biryani":"61-chicken-biryani.webp","apollo-fish":"59-apollo-fish.webp","chicken-65":"60-chicken-65.webp","chicken-lollipop":"62-chicken-lollipop.webp","chilli-chicken":"63-chilli-chicken.webp","veg-biryani":"66-veg-biryani.webp","fried-rice":"65-fried-rice.webp"};
+window.TABV={};window.USE_MV=1;window.FISH_FILE="fish.b64.txt";window.GLB_PARTS=["dish.b64.1.txt","dish.b64.2.txt"];window.A={"chicken-biryani":"61-chicken-biryani.webp","apollo-fish":"59-apollo-fish.webp","chicken-65":"60-chicken-65.webp","chicken-lollipop":"62-chicken-lollipop.webp","chilli-chicken":"63-chilli-chicken.webp","veg-biryani":"66-veg-biryani.webp","fried-rice":"65-fried-rice.webp"};
 </script>
-<script src="steam.js"></script>
 <script src="spritemap.js"></script>
-<script src="credits.js"></script>
-<script src="spc0.js"></script>
-<script src="spc1.js"></script>
-<script src="spc2.js"></script>
-<script src="spc3.js"></script>
-<script src="spc4.js"></script>
-<script src="spc5.js"></script>
-<script src="spc6.js"></script>
-<script src="spc7.js"></script>
-<script src="spc8.js"></script>
-<script src="spc9.js"></script>
-<script src="spc10.js"></script>
-<script src="spc11.js"></script>
-<script src="spc12.js"></script>
-<script src="spc13.js"></script>
-<script src="hv-starters.js"></script>
-<script src="hv-main.js"></script>
-<script src="hv-desserts.js"></script>
-<script src="hv-drinks.js"></script>
+<script src="credits.js" defer></script>
 <script src="p3d/plate.js"></script>
-<script src="alpha.js?v=20261123l"></script>
+<script src="alpha.js?v=20261123m"></script>
+<script>
+(function(){var n=0,T=14;function go(i){var s=document.createElement('script');s.src='spc'+i+'.js';s.async=true;s.onload=s.onerror=function(){if(++n==T){window.dispatchEvent(new Event('scroll'));document.querySelectorAll('.paper').forEach(function(p){p.dispatchEvent(new Event('scroll'))})}};document.head.appendChild(s)}
+window.addEventListener('load',function(){for(var i=0;i<T;i++)go(i)});
+if('serviceWorker' in navigator)window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js?v=20261123m').catch(function(){})});
+})();
+</script>
 </body>
 </html>
