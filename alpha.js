@@ -164,3 +164,4 @@ document.addEventListener('scroll',e=>{const p=e.target&&e.target.closest?e.targ
  if(Math.abs(d)>10||y<=30)lastY.set(p,y)},true);
 })();
 (function(){let t;new MutationObserver(()=>{clearTimeout(t);t=setTimeout(()=>{const p=document.querySelector('.paper');if(p)p.dispatchEvent(new Event('scroll'))},200)}).observe(document.body,{childList:true,subtree:true})})();
+(function(){const s=document.createElement('style');s.textContent='#app .hero,#app .b3n{display:none!important}';document.head.append(s)})();
