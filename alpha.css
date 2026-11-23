@@ -94,7 +94,6 @@ button:active:not(:disabled){transform:scale(.94)}
 .emp b{display:block;font:700 24px var(--serif);color:var(--gold);padding:60px 0}
 .fly{position:fixed;z-index:60;width:28px;height:28px;pointer-events:none;will-change:transform}.fly svg{width:28px;height:28px;fill:#c0392b;stroke:#c0392b}
 
-.credit{margin:6px 12px 0;text-align:center;font-size:10.5px;line-height:1.35;color:var(--mut);opacity:.85}
 .paper.sc{overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}.paper.sc .page{min-height:min-content}.pgn.one{display:none}
 .arb{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:8px;font:700 14px "Noto Sans",system-ui,sans-serif;color:#2b170b;background:var(--gold);border:0;border-radius:99px;padding:11px 18px;min-height:44px;box-shadow:0 6px 16px #0006;cursor:pointer}
 
@@ -159,12 +158,6 @@ header{display:grid;grid-template-columns:44px minmax(0,1fr) 44px auto;align-ite
 /* shorter banner */
 .hero{height:110px}
 /* credits link + sheet */
-.credit{text-align:center;margin:14px 0 18px}
-.crb{background:none;border:0;color:var(--mut);font:600 12px "Noto Sans",system-ui,sans-serif;text-decoration:underline;cursor:pointer;padding:8px}
-.crs{max-height:56vh;overflow:auto;text-align:start;font-size:12px;color:var(--mut)}
-.crs p{margin:4px 0 10px;line-height:1.5}
-.crr{padding:5px 0;border-top:1px solid #ffffff12}
-.crr b{display:block;color:var(--cream);font-size:12.5px}
 .crr a{color:var(--gold)}
 
 .ib.lp{justify-self:end;white-space:nowrap}
