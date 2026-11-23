@@ -127,7 +127,7 @@ st.textContent=`.t3{font:800 12px/1 sans-serif!important;background:linear-gradi
 .b3n button{border:0;border-radius:99px;background:#2b170b;color:#ffd566;font:700 13px sans-serif;padding:7px 12px;white-space:nowrap}
 .topbar.min{padding-bottom:4px}`;
 document.head.append(st);
-const go=()=>{const a=document.querySelector('.hero');if(!a||document.querySelector('.b3n'))return;
+const go=()=>{const o=document.querySelector('.b3n');if(o)o.remove();return;const a=document.querySelector('.hero');if(!a||document.querySelector('.b3n'))return;
  const n=(window.P3D&&P3D.ids||[]).length;const b=document.createElement('div');b.className='b3n';
  b.innerHTML='<span>'+n+' dishes in 3D. Look for the gold 3D badge in Starters and Main course.</span>';
  a.after(b)};
