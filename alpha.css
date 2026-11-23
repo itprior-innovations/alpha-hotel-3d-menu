@@ -111,8 +111,8 @@ button:active:not(:disabled){transform:scale(.94)}
 .panel{animation:up .22s ease-out}
 /* picks sheet */
 .grab{width:44px;height:5px;border-radius:3px;background:#ffffff44;margin:0 auto 10px;flex:none}
-.ph{display:flex;align-items:center;justify-content:space-between}
-.ph h3{margin:0 0 10px}
+.phd{display:flex;align-items:center;justify-content:space-between}
+.phd h3{margin:0 0 10px}
 .xbig{width:40px;height:40px;border-radius:50%;border:1px solid #ffffff33;background:transparent;color:var(--cream);font-size:15px;cursor:pointer;flex:none}
 .panel{padding-top:8px}
 .qs button{width:36px;height:36px;font-size:19px}
