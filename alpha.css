@@ -182,3 +182,7 @@ header{display:flex!important;grid-template-columns:none;align-items:center;just
 /* fit brand text beside right controls */
 .mark i{font-size:7.4px;letter-spacing:.07em}
 @media(max-width:380px){.mark b{font-size:14px;letter-spacing:.1em}.mark i{display:none}.mark:after{display:none}}
+
+/* wishlist scroll + badge shake */
+.panel .list{min-height:0}
+#pc{display:inline-block}
