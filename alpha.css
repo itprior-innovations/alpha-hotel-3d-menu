@@ -187,3 +187,7 @@ header{display:flex!important;grid-template-columns:none;align-items:center;just
 .panel .list{min-height:0}
 #pc{display:inline-block}
 #flt .strip .diet[hidden]{display:none}
+
+/* hero hides smoothly on scroll, like the header */
+.hero{max-height:130px;transition:max-height .25s ease,opacity .2s ease,margin .25s ease}
+.hero.hmin{max-height:0;opacity:0;margin-top:0;margin-bottom:0}
