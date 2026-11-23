@@ -41,11 +41,11 @@ const IMG=i=>esc(safeUrl(A[i.img]||i.imgUrl)||(i.img?FISH:'')||PH);
  const hasR=i=>!!(i.renderer&&REN[i.renderer]);
  const hasMV=i=>!!i.glb&&!!GLBURL&&!!(window.customElements&&(window.USE_MV||customElements.get('model-viewer')));
  const has3d=i=>hasR(i)||hasMV(i);
- let PK=[];try{PK=JSON.parse(st.get('pk','[]'));if(!Array.isArray(PK))PK=[]}catch(e){PK=[]}
- let QT={};try{QT=JSON.parse(st.get('qty','{}'))||{}}catch(e){QT={}}
+ let PK=[];try{localStorage.removeItem('pk');localStorage.removeItem('qty')}catch(e){}
+ let QT={}
  const courses=['starters','main','desserts','drinks'].filter(c=>M.allCourses===false?M.items.some(i=>cOf(i)==c):true);
  let cf=courses[0],vf='nv',pg=0,det=-1,inst=null,dir=0;let q='';
- const isPk=i=>PK.includes(i.id),savePk=()=>st.set('pk',JSON.stringify(PK));
+ const isPk=i=>PK.includes(i.id),savePk=()=>{};
  const vis=()=>M.items.map((i,x)=>x).filter(x=>(q||cOf(M.items[x])==cf)&&(vf=='all'||(M.items[x].veg!=null&&(vf=='veg')==!!M.items[x].veg))&&(!q||(((M.items[x].n&&M.items[x].n.en)||'')+' '+((M.items[x].d&&M.items[x].d.en)||'')).toLowerCase().includes(q)));
  const cols=()=>innerWidth>=900?2:1,ps=()=>innerHeight<700?3:4;
  const E=h=>{const d=document.createElement('div');d.innerHTML=h.trim();return d.firstChild};
@@ -101,7 +101,7 @@ function render(){head();flt();srch();book();lazify()}
   const s=sheet(`<div class="phd"><h3>${t('mypicks')}</h3><div class="phb">${it.length?`<button class="xbig shl" id="shl" type="button" aria-label="${t('share')}">${ic.share}</button>`:''}<button class="xbig" type="button" aria-label="Close">✕</button></div></div>${it.length?`<p class="show">Show this to your waiter. No ordering or payment here.</p><div class="list">${it.map(row).join('')}</div><div class="qtot"><span>Total</span><b>${allP?money(tot):money(tot)+' + items with price pending'}</b></div>`:`<small style="display:block;padding:14px;color:var(--mut)">${t('nopicks')}</small>`}`);
   const xb=s.querySelector('.xbig:not(.shl)');if(xb)xb.onclick=closeSheet;const shl=s.querySelector('#shl');if(shl)shl.onclick=()=>{const lines=it.map(x=>rn(x)+' x'+(QT[x.id]||1));const txt=tr('mypicks')+' - '+(M.brand||M.name||'')+'\n'+lines.join('\n')+(allP?'\nTotal: '+money(tot):'');shareData({title:tr('mypicks'),text:txt,url:location.origin+location.pathname},txt)};
   s.querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>{PK=PK.filter(x=>x!=b.dataset.r);savePk();sync();picks()});
-  s.querySelectorAll('[data-q]').forEach(b=>b.onclick=()=>{const id=b.closest('.qrow').dataset.i;const q=(QT[id]||1)+ +b.dataset.q;if(q<1){QT[id]=1}else{QT[id]=Math.min(q,20)}st.set('qty',JSON.stringify(QT));picks()})}lazify()
+  s.querySelectorAll('[data-q]').forEach(b=>b.onclick=()=>{const id=b.closest('.qrow').dataset.i;const q=(QT[id]||1)+ +b.dataset.q;if(q<1){QT[id]=1}else{QT[id]=Math.min(q,20)}picks()})}lazify()
  function hint(){if(st.get('seen','')&&!P.get('hint'))return;const h=E(`<div id="hint"><div class="hc"><div class="hd"><svg viewBox="0 0 24 24"><path d="M9 11V5a1.5 1.5 0 0 1 3 0v5l5 1.2c1 .3 1.6 1.2 1.4 2.2L18 19a2 2 0 0 1-2 1.7h-5a2 2 0 0 1-1.6-.8L5.5 14a1.4 1.4 0 0 1 2-2L9 13.5"/></svg></div><p>${t('h_tap')}</p><div class="sp"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div><p>${t('h_swipe')}</p><button class="gb">${t('gotit')}</button></div></div>`);h.onclick=()=>{st.set('seen','1');h.remove()};root.append(h)}
  listen(document,'keydown',e=>{if(e.key=='Escape'){if(!$('#sheet').hidden)closeSheet();else if(det>=0)closeDet()}});
  let rz;listen(window,'resize',()=>{clearTimeout(rz);rz=setTimeout(()=>{dir=0;book()},150)});
