@@ -177,3 +177,12 @@ header{display:grid;grid-template-columns:44px minmax(0,1fr) 44px auto;align-ite
 .shr{width:46px;height:46px;flex:none}
 .phb{display:flex;gap:8px;align-items:center}
 .phb .xbig svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round}
+
+/* header: logo left, controls right */
+header{display:flex!important;grid-template-columns:none;align-items:center;justify-content:space-between;gap:10px}
+.mark{text-align:left;justify-self:start;flex:1;min-width:0}
+.mark:after{margin:6px 0 0}
+.hr{display:flex;gap:8px;align-items:center;flex:none}
+#bl{justify-self:normal}
+#flt .tabs button svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
+#flt .tabs button.on svg{stroke:#2b170b}
