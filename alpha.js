@@ -125,10 +125,7 @@ st.textContent=`.t3{font:800 12px/1 sans-serif!important;background:linear-gradi
 .dish.d3{box-shadow:inset 3px 0 0 #e0a526}
 .b3n{margin:6px 12px;padding:10px 12px;border-radius:14px;background:#e0a526;color:#2b170b;font:700 14px/1.3 sans-serif;display:flex;align-items:center;gap:10px;justify-content:space-between}
 .b3n button{border:0;border-radius:99px;background:#2b170b;color:#ffd566;font:700 13px sans-serif;padding:7px 12px;white-space:nowrap}
-.hero.hmin+.b3n{display:none}
-.only3 .dish:not(.d3){display:none}
-.topbar.min .sbar,.topbar.min nav{display:none}
-.topbar.min{padding-bottom:0}`;
+.topbar.min{padding-bottom:4px}`;
 document.head.append(st);
 const go=()=>{const a=document.querySelector('.hero');if(!a||document.querySelector('.b3n'))return;
  const n=(window.P3D&&P3D.ids||[]).length;const b=document.createElement('div');b.className='b3n';
@@ -136,4 +133,31 @@ const go=()=>{const a=document.querySelector('.hero');if(!a||document.querySelec
  a.after(b)};
 const mk=()=>{document.querySelectorAll('.dish').forEach(d=>{if(d.querySelector('.t3'))d.classList.add('d3')})};
 new MutationObserver(()=>{go();mk()}).observe(document.body,{childList:true,subtree:true});go();mk();
+})();
+
+(function(){
+const st=document.createElement('style');
+st.textContent=`#app{position:relative;overflow:hidden}
+#book{position:absolute!important;left:0;right:0;top:0;bottom:0;z-index:1}
+.paper{box-sizing:border-box;padding-top:var(--gh,300px)!important}
+.topbar,.hero,.b3n{position:relative!important;z-index:20;transition:transform .28s ease}
+.topbar{position:relative!important}
+.hero{box-shadow:0 0 0 12px #2b170b;max-height:none!important;height:110px!important;margin:8px 12px 4px!important}
+.hero.hmin{max-height:none!important;opacity:1!important;margin:8px 12px 4px!important}
+.topbar.min header{max-height:64px!important;opacity:1!important;padding-top:inherit!important;padding-bottom:inherit!important}
+.b3n{box-shadow:0 0 0 12px #2b170b;margin:10px 12px 14px!important}
+#app.gh .topbar,#app.gh .hero,#app.gh .b3n{transform:translateY(-110vh)}`;
+document.head.append(st);
+const app=()=>document.getElementById('app');
+const gh=()=>{const a=app();if(!a)return;let m=0;a.querySelectorAll('.topbar,.hero,.b3n').forEach(e=>{m=Math.max(m,e.offsetTop+e.offsetHeight+(e.classList.contains('hero')||e.classList.contains('b3n')?16:0))});
+ if(m>0&&Math.abs((parseFloat(a.style.getPropertyValue('--gh'))||0)-m)>1)a.style.setProperty('--gh',m+'px')};
+const ro=new ResizeObserver(gh);let seen=new WeakSet();
+const watch=()=>{const a=app();if(!a)return;a.querySelectorAll('.topbar,.hero,.b3n,.topbar header,.sbar').forEach(e=>{if(!seen.has(e)){seen.add(e);ro.observe(e)}});const p=a.querySelector('.paper');if(p&&p.scrollTop<=30)a.classList.remove('gh');gh()};
+new MutationObserver(watch).observe(document.body,{childList:true,subtree:true});watch();addEventListener('resize',gh);
+const lastY=new WeakMap();
+document.addEventListener('scroll',e=>{const p=e.target&&e.target.closest?e.target.closest('.paper'):null;if(!p)return;const a=app();if(!a)return;
+ const y=p.scrollTop,l=lastY.get(p)||0,d=y-l;
+ const typing=document.activeElement&&document.activeElement.id==='sq';
+ if(y<=30||d<-10)a.classList.remove('gh');else if(d>10&&y>120&&!typing)a.classList.add('gh');
+ if(Math.abs(d)>10||y<=30)lastY.set(p,y)},true);
 })();
