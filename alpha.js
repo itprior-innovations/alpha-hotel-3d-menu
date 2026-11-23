@@ -116,3 +116,24 @@ function registerRenderer(name,factory){if(typeof name=='string'&&typeof factory
 window.MenuApp={mount,unmount,registerRenderer};
 if(!window.MENU_MANUAL){if(document.readyState=='loading')document.addEventListener('DOMContentLoaded',()=>mount());else mount()}
 })();
+
+
+(function(){
+const st=document.createElement('style');
+st.textContent=`.t3{font:800 12px/1 sans-serif!important;background:linear-gradient(#ffd566,#e0a526)!important;color:#2b170b!important;border-radius:6px!important;padding:4px 8px!important;margin-left:8px;vertical-align:middle;box-shadow:0 0 0 2px #2b170b33,0 2px 6px #0004;letter-spacing:.5px;display:inline-block}
+.t3::before{content:"\\25C6 "}
+.dish.d3{box-shadow:inset 3px 0 0 #e0a526}
+.b3n{margin:6px 12px;padding:10px 12px;border-radius:14px;background:#e0a526;color:#2b170b;font:700 14px/1.3 sans-serif;display:flex;align-items:center;gap:10px;justify-content:space-between}
+.b3n button{border:0;border-radius:99px;background:#2b170b;color:#ffd566;font:700 13px sans-serif;padding:7px 12px;white-space:nowrap}
+.hero.hmin+.b3n{display:none}
+.only3 .dish:not(.d3){display:none}
+.topbar.min .sbar,.topbar.min nav{display:none}
+.topbar.min{padding-bottom:0}`;
+document.head.append(st);
+const go=()=>{const a=document.querySelector('.hero');if(!a||document.querySelector('.b3n'))return;
+ const n=(window.P3D&&P3D.ids||[]).length;const b=document.createElement('div');b.className='b3n';
+ b.innerHTML='<span>'+n+' dishes in 3D. Look for the 3D badge.</span><button id="o3">Show 3D only</button>';
+ a.after(b);b.querySelector('button').onclick=function(){const on=document.body.classList.toggle('only3');this.textContent=on?'Show all':'Show 3D only';const p=document.querySelector('.paper');if(p)p.scrollTop=0;scrollTo(0,0)}};
+const mk=()=>{document.querySelectorAll('.dish').forEach(d=>{if(d.querySelector('.t3'))d.classList.add('d3')})};
+new MutationObserver(()=>{go();mk()}).observe(document.body,{childList:true,subtree:true});go();mk();
+})();
