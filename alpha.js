@@ -132,8 +132,8 @@ st.textContent=`.t3{font:800 12px/1 sans-serif!important;background:linear-gradi
 document.head.append(st);
 const go=()=>{const a=document.querySelector('.hero');if(!a||document.querySelector('.b3n'))return;
  const n=(window.P3D&&P3D.ids||[]).length;const b=document.createElement('div');b.className='b3n';
- b.innerHTML='<span>'+n+' dishes in 3D. Look for the 3D badge.</span><button id="o3">Show 3D only</button>';
- a.after(b);b.querySelector('button').onclick=function(){const on=document.body.classList.toggle('only3');this.textContent=on?'Show all':'Show 3D only';const p=document.querySelector('.paper');if(p)p.scrollTop=0;scrollTo(0,0)}};
+ b.innerHTML='<span>'+n+' dishes in 3D. Look for the gold 3D badge in Starters and Main course.</span>';
+ a.after(b)};
 const mk=()=>{document.querySelectorAll('.dish').forEach(d=>{if(d.querySelector('.t3'))d.classList.add('d3')})};
 new MutationObserver(()=>{go();mk()}).observe(document.body,{childList:true,subtree:true});go();mk();
 })();
