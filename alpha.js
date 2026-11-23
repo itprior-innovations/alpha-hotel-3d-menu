@@ -142,10 +142,11 @@ st.textContent=`#app{position:relative;overflow:hidden}
 .paper{box-sizing:border-box;padding-top:var(--gh,300px)!important}
 .topbar,.hero,.b3n{position:relative!important;z-index:20;transition:transform .28s ease}
 .topbar{position:relative!important}
-.hero{box-shadow:0 0 0 12px #2b170b;max-height:none!important;height:110px!important;margin:8px 12px 4px!important}
+.hero{max-height:none!important;height:110px!important;margin:8px 12px 4px!important}
 .hero.hmin{max-height:none!important;opacity:1!important;margin:8px 12px 4px!important}
 .topbar.min header{max-height:64px!important;opacity:1!important;padding-top:inherit!important;padding-bottom:inherit!important}
-.b3n{box-shadow:0 0 0 12px #2b170b;margin:10px 12px 14px!important}
+.b3n{margin:10px 12px 14px!important}
+.paper{background:linear-gradient(#2b170b,#2b170b) 0 0/100% var(--gh,300px) no-repeat local,linear-gradient(90deg,#e6d5b0,#f6ecd6 7%,#f6ecd6) !important}
 #app.gh .topbar,#app.gh .hero,#app.gh .b3n{transform:translateY(-110vh)}`;
 document.head.append(st);
 const app=()=>document.getElementById('app');
