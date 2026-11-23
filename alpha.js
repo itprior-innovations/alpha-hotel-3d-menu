@@ -147,18 +147,18 @@ st.textContent=`#app{position:relative;overflow:hidden}
 .topbar.min header{max-height:64px!important;opacity:1!important;padding-top:inherit!important;padding-bottom:inherit!important}
 .b3n{margin:10px 12px 14px!important}
 .paper{background:linear-gradient(#2b170b,#2b170b) 0 0/100% var(--gh,300px) no-repeat local,linear-gradient(90deg,#e6d5b0,#f6ecd6 7%,#f6ecd6) !important}
-#app.gh .topbar,#app.gh .hero,#app.gh .b3n{transform:translateY(-110vh)}`;
+#app.gh .topbar,#app.gx .hero,#app.gx .b3n{transform:translateY(-110vh)}`;
 document.head.append(st);
 const app=()=>document.getElementById('app');
 const gh=()=>{const a=app();if(!a)return;let m=0;a.querySelectorAll('.topbar,.hero,.b3n').forEach(e=>{m=Math.max(m,e.offsetTop+e.offsetHeight+(e.classList.contains('hero')||e.classList.contains('b3n')?16:0))});
  if(m>0&&Math.abs((parseFloat(a.style.getPropertyValue('--gh'))||0)-m)>1)a.style.setProperty('--gh',m+'px')};
 const ro=new ResizeObserver(gh);let seen=new WeakSet();
-const watch=()=>{const a=app();if(!a)return;a.querySelectorAll('.topbar,.hero,.b3n,.topbar header,.sbar').forEach(e=>{if(!seen.has(e)){seen.add(e);ro.observe(e)}});const p=a.querySelector('.paper');if(p&&p.scrollTop<=30)a.classList.remove('gh');gh()};
+const watch=()=>{const a=app();if(!a)return;a.querySelectorAll('.topbar,.hero,.b3n,.topbar header,.sbar').forEach(e=>{if(!seen.has(e)){seen.add(e);ro.observe(e)}});const p=a.querySelector('.paper');if(p&&p.scrollTop<=30){a.classList.remove('gh');a.classList.remove('gx')}gh()};
 new MutationObserver(watch).observe(document.body,{childList:true,subtree:true});watch();addEventListener('resize',gh);
 const lastY=new WeakMap();
 document.addEventListener('scroll',e=>{const p=e.target&&e.target.closest?e.target.closest('.paper'):null;if(!p)return;const a=app();if(!a)return;
  const y=p.scrollTop,l=lastY.get(p)||0,d=y-l;
- const typing=document.activeElement&&document.activeElement.id==='sq';
- if(y<=30||d<-10)a.classList.remove('gh');else if(d>10&&y>120&&!typing)a.classList.add('gh');
+ if(y<=30){a.classList.remove('gh');a.classList.remove('gx')}else{a.classList.add('gx');if(d<-10)a.classList.remove('gh');else if(d>10&&y>120){a.classList.add('gh');const q=document.getElementById('sq');if(q&&document.activeElement===q)q.blur()}}
  if(Math.abs(d)>10||y<=30)lastY.set(p,y)},true);
 })();
+(function(){let t;new MutationObserver(()=>{clearTimeout(t);t=setTimeout(()=>{const p=document.querySelector('.paper');if(p)p.dispatchEvent(new Event('scroll'))},200)}).observe(document.body,{childList:true,subtree:true})})();
